@@ -1,46 +1,23 @@
 import 'package:flutter/material.dart';
-import 'stopwatch_page.dart';
-import 'number_type_page.dart';
+import 'screens/splash_screen.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(title: 'Stopwatch & Number Type', home: HomePage());
-  }
+void main() {
+  runApp(const MyApp());
 }
 
-class HomePage extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Menu')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              child: Text('Stopwatch'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => StopwatchPage()),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('Jenis Bilangan'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => NumberTypePage()),
-                );
-              },
-            ),
-          ],
-        ),
+    return MaterialApp(
+      title: 'Secure App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: const SplashScreen(),
     );
   }
 }
