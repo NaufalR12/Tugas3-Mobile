@@ -85,10 +85,7 @@ class _RecommendationPageState extends State<RecommendationPage> {
         return;
       }
 
-      await launchUrl(
-        uri,
-        mode: LaunchMode.inAppWebView, // Try this for emulators
-      );
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
