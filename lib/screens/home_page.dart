@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_3/screens/number_type_page.dart';
+import 'package:tugas_3/screens/stopwatch_page.dart';
 import 'year_to_time_page.dart';
+import 'reccommendation_page.dart';
 import '../database/session_manager.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,6 +44,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Top user welcome section (non-scrollable)
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -73,40 +77,95 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+
             const SizedBox(height: 32),
             const Text(
               'Fitur Aplikasi',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
-            _buildFeatureCard(
-              context: context,
-              title: 'Konversi Tahun ke Waktu',
-              description: 'Konversi tahun ke detik, menit, jam, dan hari',
-              icon: Icons.access_time,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const YearToTimePage(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 16),
-            _buildFeatureCard(
-              context: context,
-              title: 'Pengaturan',
-              description: 'Ubah pengaturan aplikasi',
-              icon: Icons.settings,
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Fitur akan datang segera'),
-                    backgroundColor: Colors.black,
-                  ),
-                );
-              },
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 16),
+                    _buildFeatureCard(
+                      context: context,
+                      title: 'Stopwatch',
+                      description: 'Aplikasi stopwatch',
+                      icon: Icons.watch,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => StopwatchPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 1),
+                    _buildFeatureCard(
+                      context: context,
+                      title: 'Jenis Bilangan',
+                      description: 'Aplikasi menampilkan jenis bilangan',
+                      icon: Icons.calculate,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NumberTypePage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 1),
+                    _buildFeatureCard(
+                      context: context,
+                      title: 'Tracking LBS',
+                      description: 'Aplikasi tracking LBS',
+                      icon: Icons.gps_fixed,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RecommendationPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 1),
+                    _buildFeatureCard(
+                      context: context,
+                      title: 'Konversi Tahun ke Waktu',
+                      description: 'Konversi tahun ke unit waktu lain',
+                      icon: Icons.access_time,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const YearToTimePage(),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 1),
+                    _buildFeatureCard(
+                      context: context,
+                      title: 'Rekomendasi Situs',
+                      description: 'Daftar situs rekomendasi',
+                      icon: Icons.web,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RecommendationPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

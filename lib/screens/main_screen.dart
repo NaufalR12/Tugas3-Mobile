@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../database/session_manager.dart';
 import 'home_page.dart';
 import 'login_page.dart';
+import 'help_page.dart';
+import 'member_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -15,8 +17,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screens = [
     const HomePage(),
-    // const MemberPage(),
-    // const HelpPage(),
+    const MemberPage(),
+    const HelpPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -38,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[0],
+      body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
