@@ -44,45 +44,22 @@ class _YearToTimePageState extends State<YearToTimePage> {
         // Store the original input as the displayed years
         _years = input;
 
-        // For high-precision calculation, we'll use a scaling factor
-        // and then handle decimal part separately
-        final int scaleFactor = 1000000; // 6 decimal places of precision
+        // Convert input to double for calculation
+        double years = double.parse(input);
 
-        BigInt wholeYears;
-        BigInt fractionalPart;
-
-        if (input.contains('.')) {
-          List<String> parts = input.split('.');
-          wholeYears = BigInt.parse(parts[0]);
-
-          // Pad the fractional part to 6 digits
-          String fractionalStr = parts[1]
-              .padRight(6, '0')
-              .substring(0, Math.min(6, parts[1].length));
-          fractionalPart = BigInt.parse(fractionalStr);
-        } else {
-          wholeYears = BigInt.parse(input);
-          fractionalPart = BigInt.zero;
-        }
-
-        // Convert to seconds
+        // Calculate total seconds directly using double precision
         // 1 year = 365.25 days * 24 hours * 60 minutes * 60 seconds
-        final BigInt secondsPerYear = BigInt.from(365.25 * 24 * 60 * 60);
+        double secondsInYear = 365.25 * 24 * 60 * 60;
+        double totalSecondsDouble = years * secondsInYear;
 
-        // Calculate whole part
-        BigInt totalSeconds = wholeYears * secondsPerYear;
-
-        // Add fractional part
-        if (fractionalPart > BigInt.zero) {
-          BigInt fractionalSeconds =
-              (fractionalPart * secondsPerYear) ~/ BigInt.from(scaleFactor);
-          totalSeconds += fractionalSeconds;
-        }
+        // Convert to BigInt for display
+        BigInt totalSeconds = BigInt.from(totalSecondsDouble);
 
         // Calculate hours, minutes, seconds
         _seconds = totalSeconds;
         _minutes = totalSeconds ~/ BigInt.from(60);
-        _hours = _minutes ~/ BigInt.from(60);
+        _hours =
+            totalSeconds ~/ BigInt.from(3600); // 60*60 = 3600 seconds per hour
       } catch (e) {
         // Handle invalid input
         _years = "0";
