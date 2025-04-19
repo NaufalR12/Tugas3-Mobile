@@ -10,20 +10,21 @@ class HelpPage extends StatefulWidget {
 
 class _HelpPageState extends State<HelpPage> {
   String _username = '';
-  
+
   // Daftar bantuan penggunaan aplikasi
   final List<Map<String, dynamic>> _helpItems = [
     {
       'title': 'Cara Menggunakan Stopwatch',
-      'description': 'Panduan langkah demi langkah untuk menggunakan fitur stopwatch',
+      'description':
+          'Panduan langkah demi langkah untuk menggunakan fitur stopwatch',
       'icon': Icons.watch,
       'steps': [
         'Tap tombol "Stopwatch" pada halaman Beranda',
         'Tekan tombol "Start" untuk memulai stopwatch',
         'Tekan tombol "Stop" untuk menghentikan stopwatch',
         'Gunakan tombol "Lap" untuk menandai waktu',
-        'Tekan tombol "Reset" untuk mengatur ulang stopwatch ke 00:00:00'
-      ]
+        'Tekan tombol "Reset" untuk mengatur ulang stopwatch ke 00:00:00',
+      ],
     },
     {
       'title': 'Memeriksa Jenis Bilangan',
@@ -34,8 +35,8 @@ class _HelpPageState extends State<HelpPage> {
         'Masukkan angka yang ingin diperiksa pada kolom input',
         'Gunakan koma (,) jika ingin memasukkan angka desimal',
         'Tekan tombol "Cek Jenis" untuk melihat hasil',
-        'Hasil akan menampilkan jenis bilangan seperti Prima, Bulat Positif, Cacah, atau Desimal'
-      ]
+        'Hasil akan menampilkan jenis bilangan seperti Prima, Bulat Positif, Cacah, atau Desimal',
+      ],
     },
     {
       'title': 'Menggunakan Tracking LBS',
@@ -45,9 +46,9 @@ class _HelpPageState extends State<HelpPage> {
         'Tap tombol "Tracking LBS" pada halaman Beranda',
         'Izinkan aplikasi mengakses lokasi Anda jika diminta',
         'Tunggu sistem mendapatkan lokasi Anda',
-        'Lihat informasi lokasi yang ditampilkan',
-        'Gunakan fitur navigasi jika tersedia dengan menekan tombol arah'
-      ]
+        'Lihat informasi lokasi sekarang dengan menekan tombol "Tracking"',
+        'Gunakan fitur navigasi "Search" untuk mencari tempat dan "Marker" untuk menandainya',
+      ],
     },
     {
       'title': 'Konversi Tahun ke Waktu',
@@ -58,8 +59,8 @@ class _HelpPageState extends State<HelpPage> {
         'Masukkan jumlah tahun pada kolom input (bisa berupa angka desimal)',
         'Tekan tombol "KONVERSI" untuk memproses',
         'Lihat hasil konversi dalam jam, menit, dan detik',
-        'Untuk input besar, hasil akan ditampilkan dengan pemisah ribuan'
-      ]
+        'Untuk input besar, hasil akan ditampilkan dengan pemisah ribuan',
+      ],
     },
     {
       'title': 'Mengakses Rekomendasi Situs',
@@ -70,8 +71,8 @@ class _HelpPageState extends State<HelpPage> {
         'Lihat daftar situs yang direkomendasikan',
         'Tap kartu situs untuk membuka situs dalam browser dalam aplikasi',
         'Gunakan tombol favorit (ikon hati) untuk menandai situs favorit',
-        'Situs favorit akan disimpan meskipun aplikasi ditutup'
-      ]
+        'Situs favorit akan disimpan meskipun aplikasi ditutup',
+      ],
     },
     {
       'title': 'Manajemen Akun',
@@ -82,8 +83,8 @@ class _HelpPageState extends State<HelpPage> {
         'Isi username dan password yang diinginkan, lalu konfirmasi password',
         'Untuk login: Masukkan username dan password yang sudah terdaftar',
         'Untuk keluar: Tekan tombol logout (ikon keluar) pada pojok kanan bawah',
-        'Konfirmasi pilihan saat dialog logout muncul'
-      ]
+        'Konfirmasi pilihan saat dialog logout muncul',
+      ],
     },
   ];
 
@@ -227,10 +228,7 @@ class _HelpPageState extends State<HelpPage> {
               const SizedBox(height: 24),
               const Text(
                 'Langkah-langkah Penggunaan:',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               Expanded(
