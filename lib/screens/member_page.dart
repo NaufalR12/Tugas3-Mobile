@@ -116,7 +116,7 @@ class _MemberPageState extends State<MemberPage> {
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                            fontSize: 12,
                           ),
                         ),
                         const SizedBox(height: 4),
