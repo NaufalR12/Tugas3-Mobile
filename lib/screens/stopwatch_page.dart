@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class StopwatchPage extends StatefulWidget {
+  const StopwatchPage({super.key});
+
   @override
   _StopwatchPageState createState() => _StopwatchPageState();
 }
@@ -9,7 +11,7 @@ class StopwatchPage extends StatefulWidget {
 class _StopwatchPageState extends State<StopwatchPage> {
   late Stopwatch _stopwatch;
   late Timer _timer;
-  List<String> _laps = [];
+  final List<String> _laps = [];
 
   @override
   void initState() {
@@ -27,10 +29,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
     int minutes = (milliseconds ~/ (1000 * 60)) % 60;
     int seconds = (milliseconds ~/ 1000) % 60;
     int millis = (milliseconds % 1000) ~/ 10;
-    return '${hours.toString().padLeft(2, '0')}:' +
-        '${minutes.toString().padLeft(2, '0')}:' +
+    return '${hours.toString().padLeft(2, '0')}:' '${minutes.toString().padLeft(2, '0')}:' +
         '${seconds.toString().padLeft(2, '0')}.' +
-        '${millis.toString().padLeft(2, '0')}';
+        millis.toString().padLeft(2, '0');
   }
 
   void _addLap() {

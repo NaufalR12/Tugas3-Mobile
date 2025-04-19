@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_3/screens/map_screen.dart';
 import 'package:tugas_3/screens/number_type_page.dart';
 import 'package:tugas_3/screens/stopwatch_page.dart';
 import 'year_to_time_page.dart';
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const RecommendationPage(),
+                            builder: (context) => const MapScreen(),
                           ),
                         );
                       },

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class NumberTypePage extends StatefulWidget {
+  const NumberTypePage({super.key});
+
   @override
   _NumberTypePageState createState() => _NumberTypePageState();
 }
@@ -27,7 +29,7 @@ class _NumberTypePageState extends State<NumberTypePage> {
       // Ganti koma agar tetap koma (biar pengguna bisa ngetik desimal pakai koma)
       List<String> parts = cleaned.split(',');
       String numberPart = parts[0];
-      String decimalPart = parts.length > 1 ? ',' + parts[1] : '';
+      String decimalPart = parts.length > 1 ? ',${parts[1]}' : '';
 
       // Format angka ribuan
       String newText =

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'year_to_time_page.dart';
 import '../database/session_manager.dart';
 
 class HelpPage extends StatefulWidget {
