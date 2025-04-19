@@ -23,17 +23,29 @@ class _NumberTypePageState extends State<NumberTypePage> {
     _controller.addListener(() {
       String text = _controller.text;
 
+      if (text == '-' || text.isEmpty) {
+        // Kalau cuma '-' atau kosong, jangan format apa-apa
+        return;
+      }
+
       // Hapus semua titik
       String cleaned = text.replaceAll('.', '');
 
-      // Ganti koma agar tetap koma (biar pengguna bisa ngetik desimal pakai koma)
+      // Pisahkan angka dan desimal
       List<String> parts = cleaned.split(',');
       String numberPart = parts[0];
       String decimalPart = parts.length > 1 ? ',${parts[1]}' : '';
 
-      // Format angka ribuan
-      String newText =
-          formatter.format(int.tryParse(numberPart) ?? 0) + decimalPart;
+      // Cek apakah ada tanda minus di depan
+      bool isNegative = numberPart.startsWith('-');
+      String digitsOnly = numberPart.replaceAll('-', '');
+
+      if (digitsOnly.isEmpty) {
+        digitsOnly = '0';
+      }
+
+      String formattedNumber = formatter.format(int.parse(digitsOnly));
+      String newText = (isNegative ? '-' : '') + formattedNumber + decimalPart;
 
       if (newText != text) {
         _controller.value = TextEditingValue(
@@ -53,7 +65,6 @@ class _NumberTypePageState extends State<NumberTypePage> {
   }
 
   void checkNumberType(String input) {
-    // Bersihkan input (hilangkan titik, ubah koma ke titik)
     String normalized = input.replaceAll('.', '').replaceAll(',', '.');
     final num? value = num.tryParse(normalized);
 
@@ -69,7 +80,9 @@ class _NumberTypePageState extends State<NumberTypePage> {
       if (value is int || value == value.toInt()) {
         int intValue = value.toInt();
         if (isPrime(intValue)) type += 'Prima, ';
-        if (intValue >= 0) {
+        if (intValue == 0) {
+          type += 'Bulat, Cacah, ';
+        } else if (intValue > 0) {
           type += 'Bulat Positif, Cacah, ';
         } else {
           type += 'Bulat Negatif, ';
@@ -86,34 +99,40 @@ class _NumberTypePageState extends State<NumberTypePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Jenis Bilangan')),
+      appBar: AppBar(title: const Text('Jenis Bilangan')),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             TextField(
               controller: _controller,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
+              ),
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
+                FilteringTextInputFormatter.allow(RegExp(r'[-0-9.,]')),
               ],
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Masukkan angka (gunakan koma untuk desimal)',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => checkNumberType(_controller.text),
-              child: Text('Cek Jenis'),
+              child: const Text('Cek Jenis'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (_formattedNumber.isNotEmpty)
-              Text('Angka: $_formattedNumber', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 10),
+              Text(
+                'Angka: $_formattedNumber',
+                style: const TextStyle(fontSize: 20),
+              ),
+            const SizedBox(height: 10),
             Text(
               _result,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ],
         ),

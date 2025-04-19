@@ -10,13 +10,17 @@ class StopwatchPage extends StatefulWidget {
 
 class _StopwatchPageState extends State<StopwatchPage> {
   late Stopwatch _stopwatch;
-  late Timer _timer;
+  Timer? _timer;
   final List<String> _laps = [];
 
   @override
   void initState() {
     super.initState();
     _stopwatch = Stopwatch();
+    _startTimer();
+  }
+
+  void _startTimer() {
     _timer = Timer.periodic(Duration(milliseconds: 30), (timer) {
       if (_stopwatch.isRunning) {
         setState(() {});
@@ -29,9 +33,22 @@ class _StopwatchPageState extends State<StopwatchPage> {
     int minutes = (milliseconds ~/ (1000 * 60)) % 60;
     int seconds = (milliseconds ~/ 1000) % 60;
     int millis = (milliseconds % 1000) ~/ 10;
-    return '${hours.toString().padLeft(2, '0')}:' '${minutes.toString().padLeft(2, '0')}:' +
-        '${seconds.toString().padLeft(2, '0')}.' +
-        millis.toString().padLeft(2, '0');
+    return '${hours.toString().padLeft(2, '0')}:'
+        '${minutes.toString().padLeft(2, '0')}:'
+        '${seconds.toString().padLeft(2, '0')}.'
+        '${millis.toString().padLeft(2, '0')}';
+  }
+
+  void _startStopwatch() {
+    setState(() {
+      _stopwatch.start();
+    });
+  }
+
+  void _stopStopwatch() {
+    setState(() {
+      _stopwatch.stop();
+    });
   }
 
   void _addLap() {
@@ -41,14 +58,18 @@ class _StopwatchPageState extends State<StopwatchPage> {
   }
 
   void _reset() {
-    _stopwatch.reset();
-    _laps.clear();
-    setState(() {});
+    if (_stopwatch.isRunning) {
+      _stopwatch.stop();
+    }
+    setState(() {
+      _stopwatch.reset();
+      _laps.clear();
+    });
   }
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -73,14 +94,17 @@ class _StopwatchPageState extends State<StopwatchPage> {
             alignment: WrapAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: _stopwatch.isRunning ? null : _stopwatch.start,
+                onPressed: !_stopwatch.isRunning ? _startStopwatch : null,
                 child: Text('Start'),
               ),
               ElevatedButton(
-                onPressed: _stopwatch.isRunning ? _stopwatch.stop : null,
+                onPressed: _stopwatch.isRunning ? _stopStopwatch : null,
                 child: Text('Stop'),
               ),
-              ElevatedButton(onPressed: _reset, child: Text('Reset')),
+              ElevatedButton(
+                onPressed: (_stopwatch.elapsedMilliseconds > 0) ? _reset : null,
+                child: Text('Reset'),
+              ),
               ElevatedButton(
                 onPressed: _stopwatch.isRunning ? _addLap : null,
                 child: Text('Lap'),
